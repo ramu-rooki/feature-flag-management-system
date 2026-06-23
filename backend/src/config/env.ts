@@ -6,6 +6,8 @@ interface EnvVars {
   DATABASE_URL: string;
   JWT_SECRET: string;
   NODE_ENV: "development" | "production" | "test";
+  SUPER_ADMIN_EMAIL?: string;
+  SUPER_ADMIN_PASSWORD?: string;
 }
 
 const getEnvVar = (key: string, required: boolean = true): string => {
@@ -21,4 +23,6 @@ export const env: EnvVars = {
   DATABASE_URL: getEnvVar("DATABASE_URL"),
   JWT_SECRET: getEnvVar("JWT_SECRET", false) || "defaultsecret",
   NODE_ENV: (getEnvVar("NODE_ENV", false) as "development" | "production" | "test") || "development",
+  SUPER_ADMIN_EMAIL: getEnvVar("SUPER_ADMIN_EMAIL", false),
+  SUPER_ADMIN_PASSWORD: getEnvVar("SUPER_ADMIN_PASSWORD", false),
 };

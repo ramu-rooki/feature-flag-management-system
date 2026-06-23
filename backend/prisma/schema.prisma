@@ -1,3 +1,4 @@
+// Trigger Prisma generation
 generator client {
   provider = "prisma-client-js"
 }

@@ -2,16 +2,38 @@ import express from "express";
 import cors from "cors";
 import { errorHandler } from "./middleware/errorHandler";
 
+import prisma from "./config/prisma";
+
+import authRoutes from "./modules/auth/auth.routes";
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// API Routes
+app.use("/api/auth", authRoutes);
 
 app.get("/health", (req, res) => {
   res.status(200).json({
     success: true,
     message: "Backend Running"
   });
+});
+
+app.get("/health/db", async (req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    res.status(200).json({
+      success: true,
+      database: "connected"
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      database: "disconnected"
+    });
+  }
 });
 
 // Centralized error handler should be the last middleware
