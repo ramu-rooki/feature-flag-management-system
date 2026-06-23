@@ -6,11 +6,16 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Role {
+  SUPER_ADMIN
+  ORG_ADMIN
+  END_USER
+}
+
 model Organization {
   id           String        @id @default(uuid())
-  name         String
+  name         String        @unique
   createdAt    DateTime      @default(now()) @map("created_at")
-  updatedAt    DateTime      @updatedAt @map("updated_at")
   users        User[]
   featureFlags FeatureFlag[]
 
@@ -18,32 +23,29 @@ model Organization {
 }
 
 model User {
-  id             String       @id @default(uuid())
-  organizationId String       @map("organization_id")
+  id             String   @id @default(uuid())
   name           String
-  email          String       @unique
-  passwordHash   String       @map("password_hash")
-  role           String       @default("member")
-  createdAt      DateTime     @default(now()) @map("created_at")
-  updatedAt      DateTime     @updatedAt @map("updated_at")
+  email          String   @unique
+  passwordHash   String   @map("password_hash")
+  role           Role     @default(END_USER)
+  organizationId String?  @map("organization_id")
+  createdAt      DateTime @default(now()) @map("created_at")
 
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  organization Organization? @relation(fields: [organizationId], references: [id])
 
   @@map("users")
 }
 
 model FeatureFlag {
-  id             String       @id @default(uuid())
-  organizationId String       @map("organization_id")
-  name           String
-  key            String
-  description    String?
-  isEnabled      Boolean      @default(false) @map("is_enabled")
-  createdAt      DateTime     @default(now()) @map("created_at")
-  updatedAt      DateTime     @updatedAt @map("updated_at")
+  id             String   @id @default(uuid())
+  featureKey     String   @map("feature_key")
+  enabled        Boolean  @default(false)
+  organizationId String   @map("organization_id")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
 
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id])
 
-  @@unique([organizationId, key])
+  @@unique([organizationId, featureKey])
   @@map("feature_flags")
 }
