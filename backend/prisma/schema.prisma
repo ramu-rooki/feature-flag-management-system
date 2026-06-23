@@ -1,7 +1,49 @@
 generator client {
- provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
- provider = "postgresql"
+  provider = "postgresql"
+}
+
+model Organization {
+  id           String        @id @default(uuid())
+  name         String
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  users        User[]
+  featureFlags FeatureFlag[]
+
+  @@map("organizations")
+}
+
+model User {
+  id             String       @id @default(uuid())
+  organizationId String       @map("organization_id")
+  name           String
+  email          String       @unique
+  passwordHash   String       @map("password_hash")
+  role           String       @default("member")
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  @@map("users")
+}
+
+model FeatureFlag {
+  id             String       @id @default(uuid())
+  organizationId String       @map("organization_id")
+  name           String
+  key            String
+  description    String?
+  isEnabled      Boolean      @default(false) @map("is_enabled")
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([organizationId, key])
+  @@map("feature_flags")
 }
