@@ -1,0 +1,212 @@
+{
+  "info": {
+    "name": "Phase 6 - End User Feature Check",
+    "description": "Postman Collection for End User Feature Check APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Feature Enabled (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{end_user_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-check",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-check"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"featureKey\": \"new_dashboard\"\n}"
+        }
+      }
+    },
+    {
+      "name": "1b. Feature Enabled (GET)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{end_user_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-check/new_dashboard",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-check", "new_dashboard"]
+        }
+      }
+    },
+    {
+      "name": "2. Feature Disabled",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{end_user_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-check",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-check"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"featureKey\": \"dark_mode\"\n}"
+        }
+      }
+    },
+    {
+      "name": "3. Feature Does Not Exist",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{end_user_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-check",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-check"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"featureKey\": \"missing_flag_123\"\n}"
+        }
+      }
+    },
+    {
+      "name": "4. Invalid Feature Key",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{end_user_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-check",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-check"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"featureKey\": \"!!!\"\n}"
+        }
+      }
+    },
+    {
+      "name": "5. Unauthorized Request (SUPER_ADMIN)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{super_admin_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-check",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-check"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"featureKey\": \"new_dashboard\"\n}"
+        }
+      }
+    },
+    {
+      "name": "6. Missing JWT",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-check",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-check"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"featureKey\": \"new_dashboard\"\n}"
+        }
+      }
+    },
+    {
+      "name": "7. ORG_ADMIN Request",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{org_admin_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-check",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-check"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"featureKey\": \"new_dashboard\"\n}"
+        }
+      }
+    },
+    {
+      "name": "8. END_USER Request",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{end_user_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-check",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-check"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"featureKey\": \"new_dashboard\"\n}"
+        }
+      }
+    },
+    {
+      "name": "9. Cross-Tenant Access Attempt",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{other_org_user_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-check",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-check"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"featureKey\": \"new_dashboard\"\n}"
+        }
+      }
+    },
+    {
+      "name": "10. Invalid Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer invalid_token_123" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-check",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-check"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"featureKey\": \"new_dashboard\"\n}"
+        }
+      }
+    }
+  ]
+}
