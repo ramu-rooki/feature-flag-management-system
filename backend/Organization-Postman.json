@@ -1,0 +1,150 @@
+{
+  "info": {
+    "name": "Phase 4 - Organization Management",
+    "description": "Postman Collection for Organization Management APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Super Admin Create Organization",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{super_admin_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/organizations",
+          "host": ["{{base_url}}"],
+          "path": ["api", "organizations"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Velan Manufacturing\"\n}"
+        }
+      }
+    },
+    {
+      "name": "2. Duplicate Organization",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{super_admin_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/organizations",
+          "host": ["{{base_url}}"],
+          "path": ["api", "organizations"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"VELAN MANUFACTURING\"\n}"
+        }
+      }
+    },
+    {
+      "name": "3. Missing Name",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{super_admin_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/organizations",
+          "host": ["{{base_url}}"],
+          "path": ["api", "organizations"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"  \"\n}"
+        }
+      }
+    },
+    {
+      "name": "4. Invalid UUID",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{super_admin_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/organizations/123",
+          "host": ["{{base_url}}"],
+          "path": ["api", "organizations", "123"]
+        }
+      }
+    },
+    {
+      "name": "5. Get All Organizations",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{super_admin_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/organizations",
+          "host": ["{{base_url}}"],
+          "path": ["api", "organizations"]
+        }
+      }
+    },
+    {
+      "name": "6. Get Organization By ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{super_admin_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/organizations/{{organization_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "organizations", "{{organization_id}}"]
+        }
+      }
+    },
+    {
+      "name": "7. ORG_ADMIN Access Attempt",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{org_admin_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/organizations",
+          "host": ["{{base_url}}"],
+          "path": ["api", "organizations"]
+        }
+      }
+    },
+    {
+      "name": "8. END_USER Access Attempt",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{end_user_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/organizations",
+          "host": ["{{base_url}}"],
+          "path": ["api", "organizations"]
+        }
+      }
+    },
+    {
+      "name": "9. SUPER_ADMIN Success",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{super_admin_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/organizations",
+          "host": ["{{base_url}}"],
+          "path": ["api", "organizations"]
+        }
+      }
+    }
+  ]
+}

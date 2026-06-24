@@ -5,7 +5,7 @@ import { errorHandler } from "./middleware/errorHandler";
 import prisma from "./config/prisma";
 
 import authRoutes from "./modules/auth/auth.routes";
-
+import organizationRoutes from "./modules/organization/organization.routes";
 const app = express();
 
 app.use(cors());
@@ -13,7 +13,7 @@ app.use(express.json());
 
 // API Routes
 app.use("/api/auth", authRoutes);
-
+app.use("/api/organizations", organizationRoutes);
 app.get("/health", (req, res) => {
   res.status(200).json({
     success: true,
