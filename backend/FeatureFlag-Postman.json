@@ -1,0 +1,150 @@
+{
+  "info": {
+    "name": "Phase 5 - Feature Flag Management",
+    "description": "Postman Collection for Feature Flag Management APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Create Feature Flag",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{org_admin_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-flags",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-flags"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"featureKey\": \"new_dashboard\",\n  \"enabled\": true\n}"
+        }
+      }
+    },
+    {
+      "name": "2. Duplicate Feature Flag",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{org_admin_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-flags",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-flags"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"featureKey\": \"new_dashboard\",\n  \"enabled\": false\n}"
+        }
+      }
+    },
+    {
+      "name": "3. Get Feature Flags",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{org_admin_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-flags",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-flags"]
+        }
+      }
+    },
+    {
+      "name": "4. Update Feature Flag",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{org_admin_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-flags/{{feature_flag_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-flags", "{{feature_flag_id}}"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"featureKey\": \"dark_mode\",\n  \"enabled\": false\n}"
+        }
+      }
+    },
+    {
+      "name": "5. Delete Feature Flag",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{org_admin_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-flags/{{feature_flag_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-flags", "{{feature_flag_id}}"]
+        }
+      }
+    },
+    {
+      "name": "6. Toggle Feature Flag",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{org_admin_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-flags/{{feature_flag_id}}/toggle",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-flags", "{{feature_flag_id}}", "toggle"]
+        }
+      }
+    },
+    {
+      "name": "7. Cross-Tenant Attack Attempt",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{other_org_admin_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-flags/{{feature_flag_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-flags", "{{feature_flag_id}}"]
+        }
+      }
+    },
+    {
+      "name": "8. Invalid UUID",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{org_admin_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-flags/invalid-uuid",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-flags", "invalid-uuid"]
+        }
+      }
+    },
+    {
+      "name": "9. Unauthorized Request",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{end_user_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/feature-flags",
+          "host": ["{{base_url}}"],
+          "path": ["api", "feature-flags"]
+        }
+      }
+    }
+  ]
+}

@@ -6,6 +6,7 @@ import prisma from "./config/prisma";
 
 import authRoutes from "./modules/auth/auth.routes";
 import organizationRoutes from "./modules/organization/organization.routes";
+import featureFlagRoutes from "./modules/feature-flag/featureFlag.routes";
 const app = express();
 
 app.use(cors());
@@ -14,6 +15,7 @@ app.use(express.json());
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/organizations", organizationRoutes);
+app.use("/api/feature-flags", featureFlagRoutes);
 app.get("/health", (req, res) => {
   res.status(200).json({
     success: true,
